@@ -1,0 +1,497 @@
+Created by PLY version 3.9 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> command
+Rule 1     command -> arith_expr
+Rule 2     command -> assignment
+Rule 3     command -> function_def
+Rule 4     arith_expr -> arith_expr ADD_OP term
+Rule 5     arith_expr -> term
+Rule 6     assignment -> ID EQ arith_expr
+Rule 7     term -> term MULT_OP factor
+Rule 8     term -> factor
+Rule 9     factor -> LPAREN arith_expr RPAREN
+Rule 10    factor -> FLOAT
+Rule 11    factor -> INT
+Rule 12    factor -> ID
+Rule 13    factor -> function_call
+Rule 14    function_def -> FUNCTION ID LPAREN paramlist RPAREN BODY
+Rule 15    function_call -> ID LPAREN exprlist RPAREN
+Rule 16    exprlist -> arith_expr COMMA exprlist
+Rule 17    exprlist -> arith_expr
+Rule 18    paramlist -> ID COMMA paramlist
+Rule 19    paramlist -> ID
+
+Terminals, with rules where they appear
+
+ADD_OP               : 4
+BODY                 : 14
+COMMA                : 16 18
+EQ                   : 6
+FLOAT                : 10
+FUNCTION             : 14
+ID                   : 6 12 14 15 18 19
+INT                  : 11
+LPAREN               : 9 14 15
+MULT_OP              : 7
+RPAREN               : 9 14 15
+error                : 
+
+Nonterminals, with rules where they appear
+
+arith_expr           : 1 4 6 9 16 17
+assignment           : 2
+command              : 0
+exprlist             : 15 16
+factor               : 7 8
+function_call        : 13
+function_def         : 3
+paramlist            : 14 18
+term                 : 4 5 7
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . command
+    (1) command -> . arith_expr
+    (2) command -> . assignment
+    (3) command -> . function_def
+    (4) arith_expr -> . arith_expr ADD_OP term
+    (5) arith_expr -> . term
+    (6) assignment -> . ID EQ arith_expr
+    (14) function_def -> . FUNCTION ID LPAREN paramlist RPAREN BODY
+    (7) term -> . term MULT_OP factor
+    (8) term -> . factor
+    (9) factor -> . LPAREN arith_expr RPAREN
+    (10) factor -> . FLOAT
+    (11) factor -> . INT
+    (12) factor -> . ID
+    (13) factor -> . function_call
+    (15) function_call -> . ID LPAREN exprlist RPAREN
+
+    ID              shift and go to state 4
+    FUNCTION        shift and go to state 3
+    LPAREN          shift and go to state 2
+    FLOAT           shift and go to state 9
+    INT             shift and go to state 11
+
+    term                           shift and go to state 7
+    factor                         shift and go to state 8
+    function_def                   shift and go to state 1
+    assignment                     shift and go to state 10
+    command                        shift and go to state 5
+    arith_expr                     shift and go to state 12
+    function_call                  shift and go to state 6
+
+state 1
+
+    (3) command -> function_def .
+
+    $end            reduce using rule 3 (command -> function_def .)
+
+
+state 2
+
+    (9) factor -> LPAREN . arith_expr RPAREN
+    (4) arith_expr -> . arith_expr ADD_OP term
+    (5) arith_expr -> . term
+    (7) term -> . term MULT_OP factor
+    (8) term -> . factor
+    (9) factor -> . LPAREN arith_expr RPAREN
+    (10) factor -> . FLOAT
+    (11) factor -> . INT
+    (12) factor -> . ID
+    (13) factor -> . function_call
+    (15) function_call -> . ID LPAREN exprlist RPAREN
+
+    LPAREN          shift and go to state 2
+    FLOAT           shift and go to state 9
+    INT             shift and go to state 11
+    ID              shift and go to state 13
+
+    term                           shift and go to state 7
+    factor                         shift and go to state 8
+    arith_expr                     shift and go to state 14
+    function_call                  shift and go to state 6
+
+state 3
+
+    (14) function_def -> FUNCTION . ID LPAREN paramlist RPAREN BODY
+
+    ID              shift and go to state 15
+
+
+state 4
+
+    (6) assignment -> ID . EQ arith_expr
+    (12) factor -> ID .
+    (15) function_call -> ID . LPAREN exprlist RPAREN
+
+    EQ              shift and go to state 17
+    MULT_OP         reduce using rule 12 (factor -> ID .)
+    ADD_OP          reduce using rule 12 (factor -> ID .)
+    $end            reduce using rule 12 (factor -> ID .)
+    LPAREN          shift and go to state 16
+
+
+state 5
+
+    (0) S' -> command .
+
+
+
+state 6
+
+    (13) factor -> function_call .
+
+    MULT_OP         reduce using rule 13 (factor -> function_call .)
+    ADD_OP          reduce using rule 13 (factor -> function_call .)
+    $end            reduce using rule 13 (factor -> function_call .)
+    RPAREN          reduce using rule 13 (factor -> function_call .)
+    COMMA           reduce using rule 13 (factor -> function_call .)
+
+
+state 7
+
+    (5) arith_expr -> term .
+    (7) term -> term . MULT_OP factor
+
+    RPAREN          reduce using rule 5 (arith_expr -> term .)
+    ADD_OP          reduce using rule 5 (arith_expr -> term .)
+    $end            reduce using rule 5 (arith_expr -> term .)
+    COMMA           reduce using rule 5 (arith_expr -> term .)
+    MULT_OP         shift and go to state 18
+
+
+state 8
+
+    (8) term -> factor .
+
+    MULT_OP         reduce using rule 8 (term -> factor .)
+    ADD_OP          reduce using rule 8 (term -> factor .)
+    $end            reduce using rule 8 (term -> factor .)
+    RPAREN          reduce using rule 8 (term -> factor .)
+    COMMA           reduce using rule 8 (term -> factor .)
+
+
+state 9
+
+    (10) factor -> FLOAT .
+
+    MULT_OP         reduce using rule 10 (factor -> FLOAT .)
+    ADD_OP          reduce using rule 10 (factor -> FLOAT .)
+    $end            reduce using rule 10 (factor -> FLOAT .)
+    RPAREN          reduce using rule 10 (factor -> FLOAT .)
+    COMMA           reduce using rule 10 (factor -> FLOAT .)
+
+
+state 10
+
+    (2) command -> assignment .
+
+    $end            reduce using rule 2 (command -> assignment .)
+
+
+state 11
+
+    (11) factor -> INT .
+
+    MULT_OP         reduce using rule 11 (factor -> INT .)
+    ADD_OP          reduce using rule 11 (factor -> INT .)
+    $end            reduce using rule 11 (factor -> INT .)
+    RPAREN          reduce using rule 11 (factor -> INT .)
+    COMMA           reduce using rule 11 (factor -> INT .)
+
+
+state 12
+
+    (1) command -> arith_expr .
+    (4) arith_expr -> arith_expr . ADD_OP term
+
+    $end            reduce using rule 1 (command -> arith_expr .)
+    ADD_OP          shift and go to state 19
+
+
+state 13
+
+    (12) factor -> ID .
+    (15) function_call -> ID . LPAREN exprlist RPAREN
+
+    MULT_OP         reduce using rule 12 (factor -> ID .)
+    ADD_OP          reduce using rule 12 (factor -> ID .)
+    $end            reduce using rule 12 (factor -> ID .)
+    RPAREN          reduce using rule 12 (factor -> ID .)
+    COMMA           reduce using rule 12 (factor -> ID .)
+    LPAREN          shift and go to state 16
+
+
+state 14
+
+    (9) factor -> LPAREN arith_expr . RPAREN
+    (4) arith_expr -> arith_expr . ADD_OP term
+
+    RPAREN          shift and go to state 20
+    ADD_OP          shift and go to state 19
+
+
+state 15
+
+    (14) function_def -> FUNCTION ID . LPAREN paramlist RPAREN BODY
+
+    LPAREN          shift and go to state 21
+
+
+state 16
+
+    (15) function_call -> ID LPAREN . exprlist RPAREN
+    (16) exprlist -> . arith_expr COMMA exprlist
+    (17) exprlist -> . arith_expr
+    (4) arith_expr -> . arith_expr ADD_OP term
+    (5) arith_expr -> . term
+    (7) term -> . term MULT_OP factor
+    (8) term -> . factor
+    (9) factor -> . LPAREN arith_expr RPAREN
+    (10) factor -> . FLOAT
+    (11) factor -> . INT
+    (12) factor -> . ID
+    (13) factor -> . function_call
+    (15) function_call -> . ID LPAREN exprlist RPAREN
+
+    LPAREN          shift and go to state 2
+    FLOAT           shift and go to state 9
+    INT             shift and go to state 11
+    ID              shift and go to state 13
+
+    term                           shift and go to state 7
+    factor                         shift and go to state 8
+    exprlist                       shift and go to state 22
+    arith_expr                     shift and go to state 23
+    function_call                  shift and go to state 6
+
+state 17
+
+    (6) assignment -> ID EQ . arith_expr
+    (4) arith_expr -> . arith_expr ADD_OP term
+    (5) arith_expr -> . term
+    (7) term -> . term MULT_OP factor
+    (8) term -> . factor
+    (9) factor -> . LPAREN arith_expr RPAREN
+    (10) factor -> . FLOAT
+    (11) factor -> . INT
+    (12) factor -> . ID
+    (13) factor -> . function_call
+    (15) function_call -> . ID LPAREN exprlist RPAREN
+
+    LPAREN          shift and go to state 2
+    FLOAT           shift and go to state 9
+    INT             shift and go to state 11
+    ID              shift and go to state 13
+
+    term                           shift and go to state 7
+    factor                         shift and go to state 8
+    arith_expr                     shift and go to state 24
+    function_call                  shift and go to state 6
+
+state 18
+
+    (7) term -> term MULT_OP . factor
+    (9) factor -> . LPAREN arith_expr RPAREN
+    (10) factor -> . FLOAT
+    (11) factor -> . INT
+    (12) factor -> . ID
+    (13) factor -> . function_call
+    (15) function_call -> . ID LPAREN exprlist RPAREN
+
+    LPAREN          shift and go to state 2
+    FLOAT           shift and go to state 9
+    INT             shift and go to state 11
+    ID              shift and go to state 13
+
+    factor                         shift and go to state 25
+    function_call                  shift and go to state 6
+
+state 19
+
+    (4) arith_expr -> arith_expr ADD_OP . term
+    (7) term -> . term MULT_OP factor
+    (8) term -> . factor
+    (9) factor -> . LPAREN arith_expr RPAREN
+    (10) factor -> . FLOAT
+    (11) factor -> . INT
+    (12) factor -> . ID
+    (13) factor -> . function_call
+    (15) function_call -> . ID LPAREN exprlist RPAREN
+
+    LPAREN          shift and go to state 2
+    FLOAT           shift and go to state 9
+    INT             shift and go to state 11
+    ID              shift and go to state 13
+
+    term                           shift and go to state 26
+    factor                         shift and go to state 8
+    function_call                  shift and go to state 6
+
+state 20
+
+    (9) factor -> LPAREN arith_expr RPAREN .
+
+    MULT_OP         reduce using rule 9 (factor -> LPAREN arith_expr RPAREN .)
+    ADD_OP          reduce using rule 9 (factor -> LPAREN arith_expr RPAREN .)
+    $end            reduce using rule 9 (factor -> LPAREN arith_expr RPAREN .)
+    RPAREN          reduce using rule 9 (factor -> LPAREN arith_expr RPAREN .)
+    COMMA           reduce using rule 9 (factor -> LPAREN arith_expr RPAREN .)
+
+
+state 21
+
+    (14) function_def -> FUNCTION ID LPAREN . paramlist RPAREN BODY
+    (18) paramlist -> . ID COMMA paramlist
+    (19) paramlist -> . ID
+
+    ID              shift and go to state 27
+
+    paramlist                      shift and go to state 28
+
+state 22
+
+    (15) function_call -> ID LPAREN exprlist . RPAREN
+
+    RPAREN          shift and go to state 29
+
+
+state 23
+
+    (16) exprlist -> arith_expr . COMMA exprlist
+    (17) exprlist -> arith_expr .
+    (4) arith_expr -> arith_expr . ADD_OP term
+
+    COMMA           shift and go to state 30
+    RPAREN          reduce using rule 17 (exprlist -> arith_expr .)
+    ADD_OP          shift and go to state 19
+
+
+state 24
+
+    (6) assignment -> ID EQ arith_expr .
+    (4) arith_expr -> arith_expr . ADD_OP term
+
+    $end            reduce using rule 6 (assignment -> ID EQ arith_expr .)
+    ADD_OP          shift and go to state 19
+
+
+state 25
+
+    (7) term -> term MULT_OP factor .
+
+    MULT_OP         reduce using rule 7 (term -> term MULT_OP factor .)
+    ADD_OP          reduce using rule 7 (term -> term MULT_OP factor .)
+    $end            reduce using rule 7 (term -> term MULT_OP factor .)
+    RPAREN          reduce using rule 7 (term -> term MULT_OP factor .)
+    COMMA           reduce using rule 7 (term -> term MULT_OP factor .)
+
+
+state 26
+
+    (4) arith_expr -> arith_expr ADD_OP term .
+    (7) term -> term . MULT_OP factor
+
+    RPAREN          reduce using rule 4 (arith_expr -> arith_expr ADD_OP term .)
+    ADD_OP          reduce using rule 4 (arith_expr -> arith_expr ADD_OP term .)
+    $end            reduce using rule 4 (arith_expr -> arith_expr ADD_OP term .)
+    COMMA           reduce using rule 4 (arith_expr -> arith_expr ADD_OP term .)
+    MULT_OP         shift and go to state 18
+
+
+state 27
+
+    (18) paramlist -> ID . COMMA paramlist
+    (19) paramlist -> ID .
+
+    COMMA           shift and go to state 31
+    RPAREN          reduce using rule 19 (paramlist -> ID .)
+
+
+state 28
+
+    (14) function_def -> FUNCTION ID LPAREN paramlist . RPAREN BODY
+
+    RPAREN          shift and go to state 32
+
+
+state 29
+
+    (15) function_call -> ID LPAREN exprlist RPAREN .
+
+    MULT_OP         reduce using rule 15 (function_call -> ID LPAREN exprlist RPAREN .)
+    ADD_OP          reduce using rule 15 (function_call -> ID LPAREN exprlist RPAREN .)
+    $end            reduce using rule 15 (function_call -> ID LPAREN exprlist RPAREN .)
+    RPAREN          reduce using rule 15 (function_call -> ID LPAREN exprlist RPAREN .)
+    COMMA           reduce using rule 15 (function_call -> ID LPAREN exprlist RPAREN .)
+
+
+state 30
+
+    (16) exprlist -> arith_expr COMMA . exprlist
+    (16) exprlist -> . arith_expr COMMA exprlist
+    (17) exprlist -> . arith_expr
+    (4) arith_expr -> . arith_expr ADD_OP term
+    (5) arith_expr -> . term
+    (7) term -> . term MULT_OP factor
+    (8) term -> . factor
+    (9) factor -> . LPAREN arith_expr RPAREN
+    (10) factor -> . FLOAT
+    (11) factor -> . INT
+    (12) factor -> . ID
+    (13) factor -> . function_call
+    (15) function_call -> . ID LPAREN exprlist RPAREN
+
+    LPAREN          shift and go to state 2
+    FLOAT           shift and go to state 9
+    INT             shift and go to state 11
+    ID              shift and go to state 13
+
+    term                           shift and go to state 7
+    factor                         shift and go to state 8
+    exprlist                       shift and go to state 33
+    arith_expr                     shift and go to state 23
+    function_call                  shift and go to state 6
+
+state 31
+
+    (18) paramlist -> ID COMMA . paramlist
+    (18) paramlist -> . ID COMMA paramlist
+    (19) paramlist -> . ID
+
+    ID              shift and go to state 27
+
+    paramlist                      shift and go to state 34
+
+state 32
+
+    (14) function_def -> FUNCTION ID LPAREN paramlist RPAREN . BODY
+
+    BODY            shift and go to state 35
+
+
+state 33
+
+    (16) exprlist -> arith_expr COMMA exprlist .
+
+    RPAREN          reduce using rule 16 (exprlist -> arith_expr COMMA exprlist .)
+
+
+state 34
+
+    (18) paramlist -> ID COMMA paramlist .
+
+    RPAREN          reduce using rule 18 (paramlist -> ID COMMA paramlist .)
+
+
+state 35
+
+    (14) function_def -> FUNCTION ID LPAREN paramlist RPAREN BODY .
+
+    $end            reduce using rule 14 (function_def -> FUNCTION ID LPAREN paramlist RPAREN BODY .)
+

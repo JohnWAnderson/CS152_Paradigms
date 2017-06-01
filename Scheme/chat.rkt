@@ -1,5 +1,7 @@
 ;;; CS 152 Homework 4 - A simple chatbot
 ;;; starter code
+;;; Author John Anderson
+;;; Version 1.1
 
 ;;; We'll use the random function implemented in Racket
 ;;; (random k) returns a random integer in the range 0 to k-1

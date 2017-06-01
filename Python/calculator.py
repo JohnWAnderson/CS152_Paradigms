@@ -3,7 +3,8 @@
 # Purpose:     CS 152 Python Demo
 #
 # Author:  Rula Khayrallah
-#
+# Editor: John Anderson
+# Version 1.1
 # Copyright © Rula Khayrallah, 2017
 # -----------------------------------------------------------------------------
 """

@@ -1,3 +1,6 @@
+;;; Author John Anderson
+;;; Version 1.1
+
 (define (empty? s)
   (null? s)
 )
@@ -74,7 +77,8 @@
         ((in? (car s1)s2)(sameset?(cdr s1)s2))
         (else(eqv? 1 0)))) 
 
-; some tests
+; test credit: rula Khayrallah
+
 (define A (set '(1 2 7 9 7 1)))
 (define B (set '(2 0 8 0 7 12)))
 (define C (set '(9 7)))

@@ -1,0 +1,70 @@
+Done: (define (empty? s)(null? s))
+
+Done: (define(in? e s)(cond((null? s) (eqv? 1 0))((eqv? e (car s))(eqv? 1 1))(else(in? e (cdr s)))))
+
+Done: (define(set s)(cond ((null? s) '())
+     ((in? (car s)(cdr s))(set(cdr s)))
+     (else(cons (car s)(set(cdr s))))))
+
+Done: (define(add e s)(cond((in? e s) s)
+          (else(cons e s))))
+
+Done: (define(discard e s)(cond ((null? s) '())
+     ((eqv? e (car s))(cdr s))
+     (else(cons (car s)(discard e (cdr s))))))
+
+
+Done: (define(tunion s1 s2 lst)(cond ((and (null? s1)(null? s2))lst)
+       ((null? s1)(tunion s1 (cdr s2)(append lst (list(car s2)))))
+       ((null? s2)(tunion (cdr s1) s2 (append lst (list(car s1)))))
+       ((in? (car s1) s2)(tunion(cdr s1) s2 lst))
+       (else(tunion(cdr s1) s2 (append lst (list(car s1)))))))
+
+
+(define(union s1 s2)(tunion s1 s2 '()))
+
+
+done:(define(tintersection s1 s2 lst)(cond ((and (null? s1)(null? s2))lst)
+((null? s1)lst)
+((in? (car s1) s2)(tintersection(cdr s1) s2 (append lst (list(car s1)))))	
+(else(tintersection(cdr s1) s2 lst))))
+
+(define(intersection s1 s2)(tintersection s1 s2 '()))
+
+
+Done: (define(tdifference s1 s2 lst)(cond ((and (null? s1)(null? s2))lst)
+((null? s1)lst)
+((in? (car s1) s2)(tdifference(cdr s1) s2 lst))	
+(else(tdifference(cdr s1) s2 (append lst (list(car s1)))))))
+
+
+(define(difference s1 s2)(tdifference s1 s2 '()))
+
+
+done: (define(tsymmetric-difference s1 s2 lst)(cond ((and (null? s1)(null? s2))lst)
+       ((null? s1)(tsymmetric-difference s1 (cdr s2)(append lst (list(car s2)))))
+       ((null? s2)(tsymmetric-difference (cdr s1) s2 (append lst (list(car s1)))))
+       ((in? (car s1) s2)(tsymmetric-difference(cdr s1) (discard (car s1) s2) lst))
+       (else(tsymmetric-difference(cdr s1) s2 (append lst (list(car s1)))))))
+
+(define(symmetric-difference s1 s2)(tsymmetric-difference s1 s2 '()))
+
+done:(define(subset? s1 s2)(cond((and (null? s1)(null? s2))lst)
+    ((null? s1)(null? s1))
+    ((in? (car s1) s2)(subset? (cdr s1) s2))
+    (else(eqv? 1 0))))
+
+done:(define(superset? s1 s2)(cond((and (null? s1)(null? s2))lst)
+    ((null? s2)(null? s2))
+    ((in? (car s2) s1)(superset? s1 (cdr s2)))
+    (else(eqv? 1 0))))
+
+done:(define(disjoint? s1 s2)(cond((and(null? s1)(null? s2))(eqv? 1 0))
+        ((null? s1)(eqv? 1 1))
+        ((in? (car s1) s2)(eqv? 1 0))
+        (else(disjoint? (cdr s1) s2))))
+
+done: (define(sameset? s1 s2)(cond((and(null? s1)(null? s2))(eqv? 1 1))
+        ((null? s1)(eqv? 1 1))
+        ((in? (car s1)s2)(sameset?(cdr s1)s2))
+        (else(eqv? 1 0)))) 
